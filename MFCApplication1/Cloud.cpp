@@ -4,18 +4,18 @@
 Cloud::Cloud() {
 	x = 1200;
 	y = 100;
-	width = 30;
+	width = 10;
 	height = 10;
 
-	two_X = 1200;
+	two_X = 1500;
 	two_Y = 170;
-	two_Width = 50;
-	two_Height = 20;
+	two_Width = 10;
+	two_Height = 10;
 
-	three_X = 1200;
+	three_X = 1800;
 	three_Y = 230;
-	three_Width = 120;
-	three_Height = 90;
+	three_Width = 10;
+	three_Height = 10;
 
 	speed = 8;
 	startX = 1150;

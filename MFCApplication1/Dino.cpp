@@ -9,7 +9,9 @@ Dino::Dino() {
 	width = 60;
 	height = 60;
 
+	Max_Jump_Count = 2;
 	JumpPower = max_JumpPower;
+
 	isJump = false;
 }
 
