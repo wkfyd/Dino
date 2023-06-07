@@ -7,6 +7,8 @@
 #include "MFCApplication1.h"
 #include "MFCApplication1Dlg.h"
 #include "afxdialogex.h"
+#include "Dino.h"
+#include "Cactus.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -54,6 +56,9 @@ CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MFCAPPLICATION1_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+
+	player = new Dino();
+	cactus = new Cactus();
 }
 
 void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
@@ -65,6 +70,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_TIMER()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 
@@ -100,6 +107,10 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	player->ImageLoad();
+	cactus->ImageLoadCactus();
+
+	SetTimer(1, 20, NULL);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -142,6 +153,12 @@ void CMFCApplication1Dlg::OnPaint()
 	}
 	else
 	{
+		CPaintDC dc(this);
+
+		player->DrawDino(dc);
+
+		cactus->DrawCactus(dc);
+
 		CDialogEx::OnPaint();
 	}
 }
@@ -153,3 +170,42 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	switch (nIDEvent)
+	{
+	case 1:
+		player->Tick();
+
+		cactus->Tick();
+
+		if (player->Collider(cactus)) {
+			KillTimer(1);
+			MessageBox(L"ㅋㅋ벌레쉑");
+		}
+
+		Invalidate();
+		break;
+
+	default:
+		break;
+	}
+
+	CDialogEx::OnTimer(nIDEvent);
+}
+
+
+void CMFCApplication1Dlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	switch (nChar) {
+	case VK_SPACE:
+		player->StartJump();
+		break;
+	}
+
+	CDialogEx::OnKeyDown(nChar, nRepCnt, nFlags);
+}

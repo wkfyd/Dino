@@ -4,6 +4,8 @@
 
 #pragma once
 
+class Dino;
+class Cactus;
 
 // CMFCApplication1Dlg 대화 상자
 class CMFCApplication1Dlg : public CDialogEx
@@ -24,6 +26,8 @@ public:
 // 구현입니다.
 protected:
 	HICON m_hIcon;
+	Dino* player;
+	Cactus* cactus;
 
 	// 생성된 메시지 맵 함수
 	virtual BOOL OnInitDialog();
@@ -31,4 +35,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
