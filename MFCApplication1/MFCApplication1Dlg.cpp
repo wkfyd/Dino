@@ -9,6 +9,7 @@
 #include "afxdialogex.h"
 #include "Dino.h"
 #include "Cactus.h"
+#include "Cloud.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -59,6 +60,7 @@ CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 
 	player = new Dino();
 	cactus = new Cactus();
+	cloud = new Cloud();
 }
 
 void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
@@ -109,6 +111,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	player->ImageLoad();
 	cactus->ImageLoadCactus();
+	cloud->ImageLoadCloud();
 
 	SetTimer(1, 20, NULL);
 
@@ -159,6 +162,8 @@ void CMFCApplication1Dlg::OnPaint()
 
 		cactus->DrawCactus(dc);
 
+		cloud->DrawCloud(dc);
+
 		CDialogEx::OnPaint();
 	}
 }
@@ -181,6 +186,8 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		player->Tick();
 
 		cactus->Tick();
+
+		cloud->Tick();
 
 		if (player->Collider(cactus)) {
 			KillTimer(1);

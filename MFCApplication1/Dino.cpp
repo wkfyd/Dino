@@ -50,7 +50,7 @@ bool Dino::Collider(Cactus* cactus) {
 	CRect cacRect;
 	CRect cacDoubleRect;
 	cactus->GetRect(cacRect);
-	cactus->GetRect(cacDoubleRect);
+	cactus->GetRect01(cacDoubleRect);
 
 	CRect dinoRect(x, y, x + width, y + height);
 	CRect diff;

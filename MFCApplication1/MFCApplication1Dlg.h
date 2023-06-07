@@ -6,6 +6,7 @@
 
 class Dino;
 class Cactus;
+class Cloud;
 
 // CMFCApplication1Dlg 대화 상자
 class CMFCApplication1Dlg : public CDialogEx
@@ -26,8 +27,10 @@ public:
 // 구현입니다.
 protected:
 	HICON m_hIcon;
+
 	Dino* player;
 	Cactus* cactus;
+	Cloud* cloud;
 
 	// 생성된 메시지 맵 함수
 	virtual BOOL OnInitDialog();

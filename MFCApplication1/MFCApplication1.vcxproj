@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Cactus.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="Dino.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MFCApplication1.h" />
@@ -194,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cactus.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Dino.cpp" />
     <ClCompile Include="MFCApplication1.cpp" />
     <ClCompile Include="MFCApplication1Dlg.cpp" />

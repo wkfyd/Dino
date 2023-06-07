@@ -7,8 +7,8 @@ class Dino
 {
 	int count;
 
-	float ground = 350.0f; //¶¥
-	float x, y;
+	int ground = 350; //¶¥
+	int x, y;
 	int width, height, JumpPower, Max_Jump_Count;
 	int max_JumpPower = 33;
 	bool isJump;

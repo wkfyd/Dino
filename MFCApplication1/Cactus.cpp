@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Cactus.h"
-#include "pch.h"
-#include "Cactus.h"
 
 Cactus::Cactus() {
 	x = startX;
@@ -13,6 +11,7 @@ Cactus::Cactus() {
 	two_Y = 350;
 	two_Width = 120;
 	two_Height = 100;
+	speed = 16;
 }
 
 void Cactus::ImageLoadCactus() {
@@ -26,8 +25,8 @@ void Cactus::DrawCactus(CDC& dc) {
 }
 
 void Cactus::Tick() {
-	x -= 16;
-	two_X -= 16;
+	x -= speed;
+	two_X -= speed;
 
 	if (x <= -100) {
 		x = startX;
