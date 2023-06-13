@@ -36,7 +36,7 @@ void Cloud::DrawCloud(CDC& dc) {
 void Cloud::Tick() {
 	x -= speed;
 	two_X -= speed;
-	three_Y -= speed;
+	three_X -= speed;
 
 	if (x <= -100) {
 		x = startX;
