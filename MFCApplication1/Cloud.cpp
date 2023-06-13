@@ -7,12 +7,12 @@ Cloud::Cloud() {
 	width = 50;
 	height = 30;
 
-	two_X = 1800;
+	two_X = 1600;
 	two_Y = 150;
 	two_Width = 50;
 	two_Height = 30;
 
-	three_X = 2200;
+	three_X = 1900;
 	three_Y = 190;
 	three_Width = 50;
 	three_Height = 30;
@@ -28,9 +28,9 @@ void Cloud::ImageLoadCloud() {
 }
 
 void Cloud::DrawCloud(CDC& dc) {
-	image[0].Draw(dc, x, y, x + width, y + height);
-	image[1].Draw(dc, two_X, two_Y, two_X + two_Width, two_Y + two_Height);
-	image[2].Draw(dc, three_X, three_Y, three_X + three_Width, three_Y + three_Height);
+	image[0].Draw(dc, x, y, width, height);
+	image[1].Draw(dc, two_X, two_Y, two_Width, two_Height);
+	image[2].Draw(dc, three_X, three_Y, three_Width, three_Height);
 }
 
 void Cloud::Tick() {

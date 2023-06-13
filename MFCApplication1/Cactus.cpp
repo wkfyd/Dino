@@ -3,14 +3,14 @@
 
 Cactus::Cactus() {
 	x = startX;
-	y = 350;
-	width = 60;
-	height = 100;
+	y = 380;
+	width = 40;
+	height = 80;
 
 	two_X = startX + 500;
-	two_Y = 350;
-	two_Width = 120;
-	two_Height = 100;
+	two_Y = 380;
+	two_Width = 80;
+	two_Height = 80;
 	speed = 16;
 }
 
@@ -36,14 +36,16 @@ void Cactus::Tick() {
 		two_X = startX;
 	}
 
+	
+
 }
 
 void Cactus::GetRect(CRect& rect) {
 
-	rect.SetRect(x, y, x + width, y + height);
+	rect.SetRect(x+20, y+20, x + width, y + height);
 }
 
 void Cactus::GetRect01(CRect& rect) {
 
-	rect.SetRect(two_X, two_Y, two_X + two_Width, two_Y + two_Height);
+	rect.SetRect(two_X+20, two_Y+20, two_X + two_Width, two_Y + two_Height);
 }

@@ -10,6 +10,7 @@
 #include "Dino.h"
 #include "Cactus.h"
 #include "Cloud.h"
+#include "BackGround.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -22,6 +23,7 @@ class CAboutDlg : public CDialogEx
 {
 public:
 	CAboutDlg();
+
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -61,6 +63,7 @@ CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 	player = new Dino();
 	cactus = new Cactus();
 	cloud = new Cloud();
+	backGround = new BackGround();
 }
 
 void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
@@ -112,7 +115,9 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	player->ImageLoad();
 	cactus->ImageLoadCactus();
 	cloud->ImageLoadCloud();
-
+	backGround->ImageLoadBackGround();
+	score = 0;
+	
 	SetTimer(1, 20, NULL);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -158,11 +163,21 @@ void CMFCApplication1Dlg::OnPaint()
 	{
 		CPaintDC dc(this);
 
+
 		player->DrawDino(dc);
 
 		cactus->DrawCactus(dc);
 
 		cloud->DrawCloud(dc);
+
+		backGround->DrawBackGround(dc);
+
+		// 텍스트 그리기
+		CRect rectText(20, 20, 200, 40); // 텍스트가 그려질 영역
+		CString strText; // 표시할 텍스트
+		strText.Format(L"Score: %d", score);
+
+		dc.DrawText(strText, rectText, DT_LEFT);
 
 		CDialogEx::OnPaint();
 	}
@@ -189,6 +204,10 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 
 		cloud->Tick();
 
+		backGround->Tick();
+
+		score++;
+		
 		if (player->Collider(cactus)) {
 			KillTimer(1);
 			MessageBox(L"ㅋㅋ벌레쉑");
