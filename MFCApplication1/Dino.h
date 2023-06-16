@@ -10,8 +10,8 @@ class Dino
 	int ground = 385; //¶¥
 	int x, y;
 	int width, height, JumpPower, Max_Jump_Count;
-	int max_JumpPower = 33;
-	bool isJump;
+	int max_JumpPower = 33, JumpCount;
+	bool isJump, isDoubleJump;
 
 	CImage images[4];
 

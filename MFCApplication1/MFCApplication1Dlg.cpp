@@ -64,6 +64,8 @@ CMFCApplication1Dlg::CMFCApplication1Dlg(CWnd* pParent /*=nullptr*/)
 	cactus = new Cactus();
 	cloud = new Cloud();
 	backGround = new BackGround();
+	score = 0;
+	time = 0;
 }
 
 void CMFCApplication1Dlg::DoDataExchange(CDataExchange* pDX)
@@ -117,6 +119,7 @@ BOOL CMFCApplication1Dlg::OnInitDialog()
 	cloud->ImageLoadCloud();
 	backGround->ImageLoadBackGround();
 	score = 0;
+	time = 0;
 	
 	SetTimer(1, 20, NULL);
 
@@ -166,7 +169,11 @@ void CMFCApplication1Dlg::OnPaint()
 
 		player->DrawDino(dc);
 
-		cactus->DrawCactus(dc);
+		// Cactus 객체 그리기
+		for (const auto& cactus : cactusVector)
+		{
+			cactus->DrawCactus(dc);
+		}
 
 		cloud->DrawCloud(dc);
 
@@ -198,9 +205,21 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 	switch (nIDEvent)
 	{
 	case 1:
+		time++;
 		player->Tick();
 
-		cactus->Tick();
+		//선인장 생성, 최소한의 간격 설정을 못 했습니다.
+		if (time % ((rand() % 150) + 1) == 0 && cactusVector.size() < 3) {
+			Cactus* newCactus = new Cactus();
+			newCactus->ImageLoadCactus();
+			cactusVector.push_back(newCactus);
+		}
+
+		//게임 오브젝트들 업데이트
+		for (auto& cactus : cactusVector)
+		{
+			cactus->Tick();
+		}
 
 		cloud->Tick();
 
@@ -209,12 +228,10 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		score++;
 
 		if (score == 180) {
-			cactus->speedRate += 10;
 			backGround->speedRate += 10;
 		}
 
 		if (score == 420) {
-			cactus->speedRate += 10;
 			backGround->speedRate += 10;
 		}
 
@@ -228,11 +245,28 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 			score++;
 		}
 		
-		if (player->Collider(cactus)) {
-			KillTimer(1);
-			CString message;
-			message.Format(L"%d 점\n다시 도전해보세요!", score);
-			MessageBox(message, L"결과");
+		// 선인장 삭제
+		for (auto it = cactusVector.begin(); it != cactusVector.end(); )
+		{
+			Cactus* cactus = *it;
+
+			if (cactus->x <= -100) {
+				delete cactus;
+				it = cactusVector.erase(it);
+			}
+			else {
+				++it;
+			}
+		}
+
+		for (auto& cactus : cactusVector)
+		{
+			if (player->Collider(cactus)) {
+				KillTimer(1);
+				CString message;
+				message.Format(L"%d 점\n다시 도전해보세요!", score);
+				MessageBox(message, L"결과");
+			}
 		}
 
 		Invalidate();

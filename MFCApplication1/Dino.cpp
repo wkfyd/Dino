@@ -11,8 +11,10 @@ Dino::Dino() {
 
 	Max_Jump_Count = 2;
 	JumpPower = max_JumpPower;
+	JumpCount = 0;
 
 	isJump = false;
+	isDoubleJump = false;
 }
 
 void Dino::ImageLoad() {
@@ -34,27 +36,48 @@ void Dino::Tick() {
 		y -= JumpPower;
 		JumpPower -= 4;
 
+		if (JumpCount == 2 && isDoubleJump) { // 2단 점프가 가능하고 더블 점프가 요청된 경우
+			JumpPower = max_JumpPower;
+			y -= JumpPower;
+			JumpPower -= 4;
+
+			// 더블 점프 한 번 사용했으므로 상태 초기화
+			isDoubleJump = false;
+		}
+
 		if (y >= ground) {
 			y = ground;
 			JumpPower = max_JumpPower;
-
+			JumpCount = 0;
 			isJump = false;
+			isDoubleJump = false;
 		}
 	}
 }
 
 void Dino::StartJump() {
-	isJump = true;
+	if (JumpCount < Max_Jump_Count) {
+		isJump = true;
+		JumpCount++;
+
+		if (JumpCount == 1) { // 첫 번째 점프 이후에만 더블 점프 가능
+			isDoubleJump = true;
+		}
+	}
 }
 
 bool Dino::Collider(Cactus* cactus) {
 	CRect cacRect;
 	CRect cacDoubleRect;
+	CRect cacThreeRect;
+
 	cactus->GetRect(cacRect);
 	cactus->GetRect01(cacDoubleRect);
+	cactus->GetRect02(cacThreeRect);
 
 	CRect dinoRect(x, y, x + width, y + height);
 	CRect diff;
 
-	return diff.IntersectRect(&cacRect, &dinoRect) || diff.IntersectRect(&cacDoubleRect, &dinoRect);
+	return diff.IntersectRect(&cacRect, &dinoRect) || diff.IntersectRect(&cacDoubleRect, &dinoRect) ||
+			diff.IntersectRect(&cacThreeRect, &dinoRect);
 }

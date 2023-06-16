@@ -14,6 +14,7 @@ BackGround::BackGround() {
 
 	speed = 16;
 	speedRate = 0;
+
 	startX;
 }
 

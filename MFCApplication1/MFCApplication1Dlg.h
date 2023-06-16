@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <vector>
 
 class Dino;
 class Cactus;
@@ -33,7 +34,8 @@ protected:
 	Cactus* cactus;
 	Cloud* cloud;
 	BackGround* backGround;
-	int score;
+	std::vector<Cactus*> cactusVector;
+	int time;
 
 	// 생성된 메시지 맵 함수
 	virtual BOOL OnInitDialog();
@@ -42,6 +44,8 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
+	int score;
+
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
