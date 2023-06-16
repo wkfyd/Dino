@@ -7,8 +7,8 @@ class Cactus
 	//두 개 짜리
 	int two_Width, two_Height, two_X, two_Y;
 
-	int startX = 1150;
 	int speed;
+	int startX = 1150;
 
 	CRect rect;
 	CImage image[2];
@@ -17,6 +17,7 @@ class Cactus
 public:
 	Cactus();
 
+	int speedRate;
 	void ImageLoadCactus();
 	void DrawCactus(CDC& dc);
 	void Tick();

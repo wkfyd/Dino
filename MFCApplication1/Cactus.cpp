@@ -7,11 +7,12 @@ Cactus::Cactus() {
 	width = 40;
 	height = 80;
 
-	two_X = startX + 500;
+	two_X = startX + 600;
 	two_Y = 380;
 	two_Width = 80;
 	two_Height = 80;
 	speed = 16;
+	speedRate = 0;
 }
 
 void Cactus::ImageLoadCactus() {
@@ -25,8 +26,8 @@ void Cactus::DrawCactus(CDC& dc) {
 }
 
 void Cactus::Tick() {
-	x -= speed;
-	two_X -= speed;
+	x -= speed + speedRate;
+	two_X -= speed + speedRate;
 
 	if (x <= -100) {
 		x = startX;
@@ -35,9 +36,6 @@ void Cactus::Tick() {
 	if (two_X <= -100) {
 		two_X = startX;
 	}
-
-	
-
 }
 
 void Cactus::GetRect(CRect& rect) {

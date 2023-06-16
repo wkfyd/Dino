@@ -13,6 +13,7 @@ BackGround::BackGround() {
 	two_Height = 500;
 
 	speed = 16;
+	speedRate = 0;
 	startX;
 }
 
@@ -27,8 +28,8 @@ void BackGround::DrawBackGround(CDC& dc) {
 }
 
 void BackGround::Tick() {
-	x -= speed;
-	two_X -= speed;
+	x -= speed + speedRate;
+	two_X -= speed + speedRate;
 
 	if (x <= -1150) {
 		x = startX;

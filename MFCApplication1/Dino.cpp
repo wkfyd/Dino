@@ -16,7 +16,6 @@ Dino::Dino() {
 }
 
 void Dino::ImageLoad() {
-
 	//L, _T string 쓰기전에 앞에 붙여야됨 아무튼그럼
 	images[0].Load(L"images\\Dino01.png");
 	images[1].Load(L"images\\Dino02.png");

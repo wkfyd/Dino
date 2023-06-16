@@ -207,10 +207,32 @@ void CMFCApplication1Dlg::OnTimer(UINT_PTR nIDEvent)
 		backGround->Tick();
 
 		score++;
+
+		if (score == 180) {
+			cactus->speedRate += 10;
+			backGround->speedRate += 10;
+		}
+
+		if (score == 420) {
+			cactus->speedRate += 10;
+			backGround->speedRate += 10;
+		}
+
+		if (score >= 180) {
+
+			score++;
+		}
+
+		if (score >= 420) {
+
+			score++;
+		}
 		
 		if (player->Collider(cactus)) {
 			KillTimer(1);
-			MessageBox(L"ㅋㅋ벌레쉑");
+			CString message;
+			message.Format(L"%d 점\n다시 도전해보세요!", score);
+			MessageBox(message, L"결과");
 		}
 
 		Invalidate();
